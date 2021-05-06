@@ -4,6 +4,7 @@ createStuff();
 
 // Main function
 function createStuff() {
+    
 d3.csv('assets/data/cannabis.csv').then(csvData => {
 
     console.log(csvData[5]);
@@ -52,12 +53,24 @@ d3.csv('assets/data/cannabis.csv').then(csvData => {
 console.log(effectSelect1.property("value"));
 console.log(effectSelect1.property("id"));
 
+makeStrainList();
 
+
+
+    
+    // <h5>Test Subject ID No.:</h5>
+    // <select id="selDataset" onchange="optionChanged(this.value)"></select>
+})
+};
+
+
+function makeStrainList(){
+    d3.csv('assets/data/cannabis.csv').then(csvData => {
 // Adds strains to list on site
 var filteredStrains1 = csvData.filter((x) => 
     // x.Strain=="1024");
-    x.Effects.split(",").includes(effectSelect1.property("value")));
-
+    x.Effects.split(",").includes(d3.select("#selEffect1").property("value")));
+// effectSelect1.property("value")
 console.log(filteredStrains1);
 
 var strainList = d3.select("#showStrains");
@@ -66,16 +79,7 @@ filteredStrains1.forEach((strain) => {
     var listItem = strainList.append("li");
     listItem.text(strain.Strain);
 
-
-    
-
-    // Object.entries(ufo).forEach(([key, value]) => {
-    //   var cell = row.append("td");
-    //   cell.text(value);
-    // });
-  });
-  
-
+ 
 //   // Adds values to table on site
 // var tbody = d3.select("tbody");
 // data.forEach((ufo) => {
@@ -85,17 +89,20 @@ filteredStrains1.forEach((strain) => {
 //       cell.text(value);
 //     });
 //   });
-
-
     
-    // <h5>Test Subject ID No.:</h5>
-    // <select id="selDataset" onchange="optionChanged(this.value)"></select>
-})
+
+    // Object.entries(ufo).forEach(([key, value]) => {
+    //   var cell = row.append("td");
+    //   cell.text(value);
+    // });
+  });
+
+});
 };
 
-var dropDowns = d3.selectAll("select");
-console.log(dropDowns);
+console.log(d3.selectAll("select"));
+d3.selectAll("select").on("change",createStuff);
 
-function optionChanged(newId) {
-    createStuff();
-};
+// function optionChanged(newId) {
+//     createStuff();
+// };

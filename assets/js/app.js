@@ -1,11 +1,40 @@
 // Initialize the page
 createStuff();
 
+// function filterList(array1, data){
+//     var counter = 0;
+//     var currList = data;
+//     while (counter < array1.length){
+//         currList.filter((x) => 
+//         x.Effects.split(",").includes(array1[counter]));
+       
+//     }
+
+// };
 
 // Main function
 function createStuff() {
     
 d3.csv('assets/data/cannabis.csv').then(csvData => {
+    
+    // var filterzz = ["Relaxed", "Happy", "Sleepy"];
+    // var filteredStuff = csvData.filter((x)=>filterzz.every(i => x.Effects.split(",").includes(i)));
+    // console.log(filteredStuff);
+        
+        // (x) => 
+        // x.Effects.split(",").includes(filterzz[0]));
+
+        // var containsAll = arr1.every(i => arr2.includes(i))
+
+
+    // filterList(filterzz, csvData);
+    // filterzz.forEach(filterValue => {
+    //     csvData.filter
+    // })
+    var strainNames = csvData.map(x=>x.Strain);
+    console.log(strainNames);
+
+
 
     console.log(csvData[5]);
 
@@ -25,8 +54,7 @@ d3.csv('assets/data/cannabis.csv').then(csvData => {
     // effects.map(x=>x.split(","));
     console.log(allEffects);
 
-    var strainNames = csvData.map(x=>x.Strain);
-    console.log(strainNames);
+    
 
 
     var optionSelect = d3.select("#selStrain");
@@ -67,17 +95,25 @@ makeStrainList();
 function makeStrainList(){
     d3.csv('assets/data/cannabis.csv').then(csvData => {
 // Adds strains to list on site
-var filteredStrains1 = csvData.filter((x) => 
-    // x.Strain=="1024");
-    x.Effects.split(",").includes(d3.select("#selEffect1").property("value")));
-// effectSelect1.property("value")
-console.log(filteredStrains1);
+
+var filtazzz = []
+d3.selectAll(".effectSelectors").each(function(d) {filtazzz.push(this.value)});
+console.log(filtazzz);
+var filteredStuff = csvData.filter((x)=>filtazzz.every(i => x.Effects.split(",").includes(i)));
+console.log(filteredStuff);
+// // console.log(d3.select("#selStrain").property("value"));
+// var filteredStrains1 = csvData.filter((x) => 
+//     // x.Strain=="1024");
+//     x.Effects.split(",").includes(d3.select("#selEffect1").property("value")));
+// // effectSelect1.property("value")
+// console.log(filteredStrains1);
 
 var strainList = d3.select("#showStrains");
 strainList.html("");
-filteredStrains1.forEach((strain) => {
+filteredStuff.forEach((strain) => {
     var listItem = strainList.append("li");
     listItem.text(strain.Strain);
+    listItem.style("color", "red");
 
  
 //   // Adds values to table on site

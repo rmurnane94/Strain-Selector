@@ -57,7 +57,12 @@ d3.csv('assets/data/cannabis.csv').then(csvData => {
     
 
 
-    var optionSelect = d3.select("#selStrain");
+    var optionSelect = d3.select("#selStrain1");
+    strainNames.forEach(x => { 
+        optionSelect.append("option").text(x).property("value", x); 
+    });
+
+    var optionSelect = d3.select("#selStrain2");
     strainNames.forEach(x => { 
         optionSelect.append("option").text(x).property("value", x); 
     });
@@ -78,9 +83,20 @@ d3.csv('assets/data/cannabis.csv').then(csvData => {
     allEffects.forEach(x => { 
         effectSelect3.append("option").text(x).property("value", x); 
     });
+
+    var effectSelect4 = d3.select("#selEffect4");
+    allEffects.forEach(x => { 
+        effectSelect4.append("option").text(x).property("value", x); 
+    });
+
+    var effectSelect5 = d3.select("#selEffect5");
+    allEffects.forEach(x => { 
+        effectSelect5.append("option").text(x).property("value", x); 
+    });
 console.log(effectSelect1.property("value"));
 console.log(effectSelect1.property("id"));
-
+;
+strainInfo();
 makeStrainList();
 
 
@@ -132,6 +148,43 @@ filteredStuff.forEach((strain) => {
     //   cell.text(value);
     // });
   });
+
+});
+};
+
+function strainInfo(){
+    d3.csv('assets/data/cannabis.csv').then(csvData => {
+    // var currentMeta = allData.metadata.filter(x=>x.id===+currentId);
+    var view1 = d3.select("#selStrain1");
+    console.log(view1);
+    console.log(view1.property("value"));
+    var currentView1 = csvData.filter(x=>x.Strain===view1.property("value"));
+    d3.select("#strainViewer1").html(""); //clears panel before adding new info
+    // Object.entries(currentMeta[0]).forEach(([key,value])=>{
+    //     metadataspace.append("p").text(`${key} : ${value}`)
+    // });
+    console.log(currentView1);
+    Object.entries(currentView1[0]).forEach(([key,value])=>{
+        d3.select("#strainViewer1").append("p").text(`${key} : ${value}`);
+        console.log(key);
+    });
+
+     // var currentMeta = allData.metadata.filter(x=>x.id===+currentId);
+     var view2 = d3.select("#selStrain2");
+     console.log(view2);
+     console.log(view2.property("value"));
+     var currentView2 = csvData.filter(x=>x.Strain===view2.property("value"));
+     d3.select("#strainViewer2").html(""); //clears panel before adding new info
+     // Object.entries(currentMeta[0]).forEach(([key,value])=>{
+     //     metadataspace.append("p").text(`${key} : ${value}`)
+     // });
+     console.log(currentView2);
+     Object.entries(currentView2[0]).forEach(([key,value])=>{
+         d3.select("#strainViewer2").append("p").text(`${key} : ${value}`);
+         console.log(key);
+     });
+
+
 
 });
 };
